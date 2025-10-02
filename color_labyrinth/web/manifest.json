@@ -1,0 +1,10 @@
+{
+  "name": "Color Labyrinth",
+  "short_name": "Labyrinth",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#3f51b5",
+  "description": "A simple grid-based color-door puzzle.",
+  "icons": []
+}
