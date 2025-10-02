@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Color Labyrinth</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#3f51b5" />
+    <style>
+      html, body { height: 100%; }
+      body { margin: 0; background: #f3f4f6; }
+      #loading { position: fixed; inset: 0; display: grid; place-items: center; color: #374151; font-family: sans-serif; }
+    </style>
+  </head>
+  <body>
+    <div id="loading">Loading…</div>
+    <script src="flutter.js" defer></script>
+    <script>
+      window.addEventListener('load', function () {
+        _flutter.loader.loadEntrypoint({}).then(function(engineInitializer) {
+          return engineInitializer.initializeEngine();
+        }).then(function(appRunner) {
+          document.getElementById('loading')?.remove();
+          return appRunner.runApp();
+        });
+      });
+    </script>
+  </body>
+</html>
