@@ -45,6 +45,15 @@ class GameLogic {
       case 3:
         _loadLevel3();
         break;
+      case 4:
+        _loadLevel4();
+        break;
+      case 5:
+        _loadLevel5();
+        break;
+      case 6:
+        _loadLevel6();
+        break;
       default:
         _loadRandomLevel();
     }
@@ -107,6 +116,75 @@ class GameLogic {
     playerCol = 1;
     playerColor = PlayerColor.red;
     exitRow = 6;
+    exitCol = 6;
+  }
+
+  void _loadLevel4() {
+    // Hard level with complex path
+    board = [
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.redTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.redDoor, TileType.wall, TileType.blueTile, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.blueDoor, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+    ];
+    
+    playerRow = 6;
+    playerCol = 1;
+    playerColor = PlayerColor.red;
+    exitRow = 7;
+    exitCol = 6;
+  }
+
+  void _loadLevel5() {
+    // Expert level with multiple color sequences
+    board = [
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.redTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.redDoor, TileType.wall, TileType.blueTile, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.blueDoor, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+    ];
+    
+    playerRow = 7;
+    playerCol = 1;
+    playerColor = PlayerColor.red;
+    exitRow = 9;
+    exitCol = 6;
+  }
+
+  void _loadLevel6() {
+    // Legend level - ultimate challenge
+    board = [
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.redTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.redDoor, TileType.wall, TileType.blueTile, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.blueDoor, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.wall, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.greenDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
+      [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
+    ];
+    
+    playerRow = 8;
+    playerCol = 1;
+    playerColor = PlayerColor.red;
+    exitRow = 11;
     exitCol = 6;
   }
 

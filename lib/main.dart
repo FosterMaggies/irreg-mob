@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'game_screen.dart';
+import 'screens/start_screen.dart';
 
 void main() {
   runApp(const ColorLabyrinthApp());
@@ -16,8 +16,9 @@ class ColorLabyrinthApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
+        fontFamily: 'Roboto',
       ),
-      home: const GameScreen(),
+      home: const StartScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'game_logic.dart';
+import '../game_logic.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final int initialLevel;
+  
+  const GameScreen({super.key, this.initialLevel = 1});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -11,11 +13,12 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameLogic gameLogic;
-  int currentLevel = 1;
+  late int currentLevel;
 
   @override
   void initState() {
     super.initState();
+    currentLevel = widget.initialLevel;
     gameLogic = GameLogic();
     gameLogic.loadLevel(currentLevel);
   }
@@ -87,69 +90,152 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        title: Text('Color Labyrinth - Level $currentLevel'),
-        backgroundColor: Colors.grey[800],
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: _resetLevel,
-            icon: const Icon(Icons.refresh),
-            tooltip: 'Reset Level',
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1a1a2e),
+              Color(0xFF16213e),
+              Color(0xFF0f3460),
+            ],
           ),
-        ],
-      ),
-      body: Focus(
-        autofocus: true,
-        onKeyEvent: (node, event) {
-          if (event is KeyDownEvent) {
-            _handleKeyPress(event.logicalKey);
-          }
-          return KeyEventResult.handled;
-        },
-        child: Center(
+        ),
+        child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Game Board
+              // Header
               Container(
                 padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: _buildGameBoard(),
-              ),
-              
-              const SizedBox(height: 20),
-              
-              // Instructions
-              Container(
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[800],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
+                child: Row(
                   children: [
-                    Text(
-                      'Instructions:',
-                      style: TextStyle(
+                    IconButton(
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
                         color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        size: 28,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(width: 10),
                     Text(
-                      '• Use arrow keys to move\n'
-                      '• Step on colored tiles to change your color\n'
-                      '• Match your color with doors to pass through\n'
-                      '• Reach the green exit to complete the level',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      'Level $currentLevel',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
+                    const Spacer(),
+                    // Player Color Indicator
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: _getPlayerColor().withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: _getPlayerColor(),
+                          width: 2,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: _getPlayerColor(),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            _getPlayerColorName(),
+                            style: TextStyle(
+                              color: _getPlayerColor(),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        _resetLevel();
+                      },
+                      icon: const Icon(
+                        Icons.refresh,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Game Board
+              Expanded(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.3),
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: _buildGameBoard(),
+                  ),
+                ),
+              ),
+              
+              // Touch Controls
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    // Instructions
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                          width: 1,
+                        ),
+                      ),
+                      child: const Text(
+                        'Swipe or use arrow keys to move • Match colors with doors',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 20),
+                    
+                    // Touch Controls
+                    _buildTouchControls(),
                   ],
                 ),
               ),
@@ -257,5 +343,85 @@ class _GameScreenState extends State<GameScreen> {
       case PlayerColor.yellow:
         return Colors.yellow;
     }
+  }
+
+  String _getPlayerColorName() {
+    switch (gameLogic.playerColor) {
+      case PlayerColor.red:
+        return 'RED';
+      case PlayerColor.blue:
+        return 'BLUE';
+      case PlayerColor.green:
+        return 'GREEN';
+      case PlayerColor.yellow:
+        return 'YELLOW';
+    }
+  }
+
+  Widget _buildTouchControls() {
+    return Container(
+      width: 200,
+      height: 200,
+      child: Stack(
+        children: [
+          // Up
+          Positioned(
+            top: 0,
+            left: 75,
+            child: _buildControlButton(Icons.keyboard_arrow_up, Direction.up),
+          ),
+          // Down
+          Positioned(
+            bottom: 0,
+            left: 75,
+            child: _buildControlButton(Icons.keyboard_arrow_down, Direction.down),
+          ),
+          // Left
+          Positioned(
+            left: 0,
+            top: 75,
+            child: _buildControlButton(Icons.keyboard_arrow_left, Direction.left),
+          ),
+          // Right
+          Positioned(
+            right: 0,
+            top: 75,
+            child: _buildControlButton(Icons.keyboard_arrow_right, Direction.right),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildControlButton(IconData icon, Direction direction) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        bool moved = gameLogic.movePlayer(direction);
+        if (moved) {
+          setState(() {});
+          if (gameLogic.isLevelComplete()) {
+            _showLevelCompleteDialog();
+          }
+        }
+      },
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.2),
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.white.withOpacity(0.5),
+            width: 2,
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 24,
+        ),
+      ),
+    );
   }
 }
