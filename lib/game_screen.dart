@@ -45,6 +45,8 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     if (moved) {
+      // Update enemies after player moves
+      gameLogic.updateEnemies();
       setState(() {});
       
       if (gameLogic.isLevelComplete()) {
@@ -166,6 +168,41 @@ class _GameScreenState extends State<GameScreen> {
                         ],
                       ),
                     ),
+                    
+                    const SizedBox(width: 10),
+                    
+                    // Keys Collected Indicator
+                    if (gameLogic.collectedKeys.isNotEmpty)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.amber,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.vpn_key,
+                              color: Colors.amber,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              '${gameLogic.collectedKeys.length}',
+                              style: const TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     const SizedBox(width: 10),
                     IconButton(
                       onPressed: () {
@@ -287,43 +324,103 @@ class _GameScreenState extends State<GameScreen> {
         case PlayerColor.yellow:
           child = const SvgAsset(assetPath: 'assets/icons/player_yellow.svg', width: 32, height: 32);
           break;
+        case PlayerColor.purple:
+          child = const SvgAsset(assetPath: 'assets/icons/player_purple.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.orange:
+          child = const SvgAsset(assetPath: 'assets/icons/player_orange.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.cyan:
+          child = const SvgAsset(assetPath: 'assets/icons/player_cyan.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.pink:
+          child = const SvgAsset(assetPath: 'assets/icons/player_pink.svg', width: 32, height: 32);
+          break;
       }
     } else {
-      // Use custom tile SVGs
-      switch (tile) {
-        case TileType.empty:
-          child = const SvgAsset(assetPath: 'assets/icons/empty_tile.svg', width: 40, height: 40);
-          break;
-        case TileType.wall:
-          child = const SvgAsset(assetPath: 'assets/icons/wall.svg', width: 40, height: 40);
-          break;
-        case TileType.redTile:
-          child = const SvgAsset(assetPath: 'assets/icons/color_tile_red.svg', width: 40, height: 40);
-          break;
-        case TileType.blueTile:
-          child = const SvgAsset(assetPath: 'assets/icons/color_tile_blue.svg', width: 40, height: 40);
-          break;
-        case TileType.greenTile:
-          child = const SvgAsset(assetPath: 'assets/icons/color_tile_green.svg', width: 40, height: 40);
-          break;
-        case TileType.yellowTile:
-          child = const SvgAsset(assetPath: 'assets/icons/color_tile_yellow.svg', width: 40, height: 40);
-          break;
-        case TileType.redDoor:
-          child = const SvgAsset(assetPath: 'assets/icons/red_door.svg', width: 40, height: 40);
-          break;
-        case TileType.blueDoor:
-          child = const SvgAsset(assetPath: 'assets/icons/blue_door.svg', width: 40, height: 40);
-          break;
-        case TileType.greenDoor:
-          child = const SvgAsset(assetPath: 'assets/icons/green_door.svg', width: 40, height: 40);
-          break;
-        case TileType.yellowDoor:
-          child = const SvgAsset(assetPath: 'assets/icons/yellow_door.svg', width: 40, height: 40);
-          break;
-        case TileType.exit:
-          child = const SvgAsset(assetPath: 'assets/icons/exit.svg', width: 40, height: 40);
-          break;
+      // Check if there's an enemy at this position
+      bool hasEnemy = gameLogic.enemies.any((enemy) => enemy.row == row && enemy.col == col);
+      if (hasEnemy) {
+        child = const SvgAsset(assetPath: 'assets/icons/enemy_skull.svg', width: 40, height: 40);
+      } else {
+        // Use custom tile SVGs
+        switch (tile) {
+          case TileType.empty:
+            child = const SvgAsset(assetPath: 'assets/icons/empty_tile.svg', width: 40, height: 40);
+            break;
+          case TileType.wall:
+            child = const SvgAsset(assetPath: 'assets/icons/wall.svg', width: 40, height: 40);
+            break;
+          case TileType.redTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_red.svg', width: 40, height: 40);
+            break;
+          case TileType.blueTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_blue.svg', width: 40, height: 40);
+            break;
+          case TileType.greenTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_green.svg', width: 40, height: 40);
+            break;
+          case TileType.yellowTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_yellow.svg', width: 40, height: 40);
+            break;
+          case TileType.purpleTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_purple.svg', width: 40, height: 40);
+            break;
+          case TileType.orangeTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_orange.svg', width: 40, height: 40);
+            break;
+          case TileType.cyanTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_cyan.svg', width: 40, height: 40);
+            break;
+          case TileType.pinkTile:
+            child = const SvgAsset(assetPath: 'assets/icons/color_tile_pink.svg', width: 40, height: 40);
+            break;
+          case TileType.redDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/red_door.svg', width: 40, height: 40);
+            break;
+          case TileType.blueDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/blue_door.svg', width: 40, height: 40);
+            break;
+          case TileType.greenDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/green_door.svg', width: 40, height: 40);
+            break;
+          case TileType.yellowDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/yellow_door.svg', width: 40, height: 40);
+            break;
+          case TileType.purpleDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/purple_door.svg', width: 40, height: 40);
+            break;
+          case TileType.orangeDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/orange_door.svg', width: 40, height: 40);
+            break;
+          case TileType.cyanDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/cyan_door.svg', width: 40, height: 40);
+            break;
+          case TileType.pinkDoor:
+            child = const SvgAsset(assetPath: 'assets/icons/pink_door.svg', width: 40, height: 40);
+            break;
+          case TileType.colorChanger:
+            child = const SvgAsset(assetPath: 'assets/icons/color_changer.svg', width: 40, height: 40);
+            break;
+          case TileType.redKey:
+            child = const SvgAsset(assetPath: 'assets/icons/red_key.svg', width: 40, height: 40);
+            break;
+          case TileType.blueKey:
+            child = const SvgAsset(assetPath: 'assets/icons/blue_key.svg', width: 40, height: 40);
+            break;
+          case TileType.greenKey:
+            child = const SvgAsset(assetPath: 'assets/icons/green_key.svg', width: 40, height: 40);
+            break;
+          case TileType.yellowKey:
+            child = const SvgAsset(assetPath: 'assets/icons/yellow_key.svg', width: 40, height: 40);
+            break;
+          case TileType.exit:
+            child = const SvgAsset(assetPath: 'assets/icons/exit.svg', width: 40, height: 40);
+            break;
+          case TileType.enemy:
+            child = const SvgAsset(assetPath: 'assets/icons/enemy_skull.svg', width: 40, height: 40);
+            break;
+        }
       }
     }
     
@@ -358,6 +455,14 @@ class _GameScreenState extends State<GameScreen> {
         return Colors.green;
       case PlayerColor.yellow:
         return Colors.yellow;
+      case PlayerColor.purple:
+        return Colors.purple;
+      case PlayerColor.orange:
+        return Colors.orange;
+      case PlayerColor.cyan:
+        return Colors.cyan;
+      case PlayerColor.pink:
+        return Colors.pink;
     }
   }
 
@@ -371,6 +476,14 @@ class _GameScreenState extends State<GameScreen> {
         return 'GREEN';
       case PlayerColor.yellow:
         return 'YELLOW';
+      case PlayerColor.purple:
+        return 'PURPLE';
+      case PlayerColor.orange:
+        return 'ORANGE';
+      case PlayerColor.cyan:
+        return 'CYAN';
+      case PlayerColor.pink:
+        return 'PINK';
     }
   }
 
@@ -415,6 +528,8 @@ class _GameScreenState extends State<GameScreen> {
         HapticFeedback.lightImpact();
         bool moved = gameLogic.movePlayer(direction);
         if (moved) {
+          // Update enemies after player moves
+          gameLogic.updateEnemies();
           setState(() {});
           if (gameLogic.isLevelComplete()) {
             _showLevelCompleteDialog();

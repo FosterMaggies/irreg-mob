@@ -1,0 +1,31 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skullGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#636e72;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d3436;stop-opacity:1" />
+    </linearGradient>
+    <filter id="skullGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#skullGlow)">
+    <!-- Skull head -->
+    <circle cx="20" cy="18" r="12" fill="url(#skullGradient)"/>
+    <!-- Eye sockets -->
+    <circle cx="16" cy="15" r="2" fill="#000000"/>
+    <circle cx="24" cy="15" r="2" fill="#000000"/>
+    <!-- Nose -->
+    <path d="M18 18 L20 20 L22 18 Z" fill="#000000"/>
+    <!-- Teeth -->
+    <rect x="16" y="22" width="2" height="4" fill="#ffffff"/>
+    <rect x="18" y="22" width="2" height="4" fill="#ffffff"/>
+    <rect x="20" y="22" width="2" height="4" fill="#ffffff"/>
+    <rect x="22" y="22" width="2" height="4" fill="#ffffff"/>
+    <!-- Jaw -->
+    <path d="M14 24 Q20 28 26 24" stroke="#000000" stroke-width="2" fill="none"/>
+  </g>
+</svg>
