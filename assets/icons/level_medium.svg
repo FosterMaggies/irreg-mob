@@ -1,0 +1,11 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mediumGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdcb6e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e17055;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="30" cy="30" r="28" fill="url(#mediumGradient)"/>
+  <circle cx="30" cy="30" r="20" fill="#ffffff" opacity="0.2"/>
+  <text x="30" y="38" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="20" font-weight="bold">2</text>
+</svg>

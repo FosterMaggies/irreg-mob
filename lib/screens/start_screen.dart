@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'level_selection_screen.dart';
+import '../widgets/svg_asset.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -86,29 +87,10 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                       child: Column(
                         children: [
                           // Game Icon
-                          Container(
+                          const SvgAsset(
+                            assetPath: 'assets/icons/game_logo.svg',
                             width: 120,
                             height: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: const LinearGradient(
-                                colors: [Colors.purple, Colors.blue, Colors.green],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.purple.withOpacity(0.3),
-                                  blurRadius: 20,
-                                  spreadRadius: 5,
-                                ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.games,
-                              size: 60,
-                              color: Colors.white,
-                            ),
                           ),
                           
                           const SizedBox(height: 30),

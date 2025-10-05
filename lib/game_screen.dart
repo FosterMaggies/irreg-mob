@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../game_logic.dart';
+import '../widgets/svg_asset.dart';
 
 class GameScreen extends StatefulWidget {
   final int initialLevel;
@@ -266,58 +267,64 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildTile(TileType tile, int row, int col) {
-    Color tileColor;
     Widget? child;
     
     // Check if this is the player position
     bool isPlayer = gameLogic.playerRow == row && gameLogic.playerCol == col;
     
-    switch (tile) {
-      case TileType.empty:
-        tileColor = Colors.grey[700]!;
-        break;
-      case TileType.wall:
-        tileColor = Colors.black;
-        break;
-      case TileType.redTile:
-        tileColor = Colors.red[300]!;
-        break;
-      case TileType.blueTile:
-        tileColor = Colors.blue[300]!;
-        break;
-      case TileType.greenTile:
-        tileColor = Colors.green[300]!;
-        break;
-      case TileType.yellowTile:
-        tileColor = Colors.yellow[300]!;
-        break;
-      case TileType.redDoor:
-        tileColor = Colors.red[800]!;
-        break;
-      case TileType.blueDoor:
-        tileColor = Colors.blue[800]!;
-        break;
-      case TileType.greenDoor:
-        tileColor = Colors.green[800]!;
-        break;
-      case TileType.yellowDoor:
-        tileColor = Colors.yellow[800]!;
-        break;
-      case TileType.exit:
-        tileColor = Colors.green[600]!;
-        break;
-    }
-    
     if (isPlayer) {
-      child = Container(
-        width: 20,
-        height: 20,
-        decoration: BoxDecoration(
-          color: _getPlayerColor(),
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 2),
-        ),
-      );
+      // Use custom player SVG based on color
+      switch (gameLogic.playerColor) {
+        case PlayerColor.red:
+          child = const SvgAsset(assetPath: 'assets/icons/player_red.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.blue:
+          child = const SvgAsset(assetPath: 'assets/icons/player_blue.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.green:
+          child = const SvgAsset(assetPath: 'assets/icons/player_green.svg', width: 32, height: 32);
+          break;
+        case PlayerColor.yellow:
+          child = const SvgAsset(assetPath: 'assets/icons/player_yellow.svg', width: 32, height: 32);
+          break;
+      }
+    } else {
+      // Use custom tile SVGs
+      switch (tile) {
+        case TileType.empty:
+          child = const SvgAsset(assetPath: 'assets/icons/empty_tile.svg', width: 40, height: 40);
+          break;
+        case TileType.wall:
+          child = const SvgAsset(assetPath: 'assets/icons/wall.svg', width: 40, height: 40);
+          break;
+        case TileType.redTile:
+          child = const SvgAsset(assetPath: 'assets/icons/color_tile_red.svg', width: 40, height: 40);
+          break;
+        case TileType.blueTile:
+          child = const SvgAsset(assetPath: 'assets/icons/color_tile_blue.svg', width: 40, height: 40);
+          break;
+        case TileType.greenTile:
+          child = const SvgAsset(assetPath: 'assets/icons/color_tile_green.svg', width: 40, height: 40);
+          break;
+        case TileType.yellowTile:
+          child = const SvgAsset(assetPath: 'assets/icons/color_tile_yellow.svg', width: 40, height: 40);
+          break;
+        case TileType.redDoor:
+          child = const SvgAsset(assetPath: 'assets/icons/red_door.svg', width: 40, height: 40);
+          break;
+        case TileType.blueDoor:
+          child = const SvgAsset(assetPath: 'assets/icons/blue_door.svg', width: 40, height: 40);
+          break;
+        case TileType.greenDoor:
+          child = const SvgAsset(assetPath: 'assets/icons/green_door.svg', width: 40, height: 40);
+          break;
+        case TileType.yellowDoor:
+          child = const SvgAsset(assetPath: 'assets/icons/yellow_door.svg', width: 40, height: 40);
+          break;
+        case TileType.exit:
+          child = const SvgAsset(assetPath: 'assets/icons/exit.svg', width: 40, height: 40);
+          break;
+      }
     }
     
     return Container(
@@ -325,10 +332,19 @@ class _GameScreenState extends State<GameScreen> {
       height: 40,
       margin: const EdgeInsets.all(1),
       decoration: BoxDecoration(
-        color: tileColor,
-        border: Border.all(color: Colors.grey[600]!, width: 0.5),
+        borderRadius: BorderRadius.circular(4),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 2,
+            offset: const Offset(1, 1),
+          ),
+        ],
       ),
-      child: Center(child: child),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: child,
+      ),
     );
   }
 

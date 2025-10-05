@@ -1,0 +1,28 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="logoGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </radialGradient>
+    <filter id="logoGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle cx="60" cy="60" r="55" fill="url(#logoGradient)" filter="url(#logoGlow)"/>
+  <circle cx="60" cy="60" r="45" fill="#ffffff" opacity="0.1"/>
+  
+  <!-- Color circles representing the game concept -->
+  <circle cx="40" cy="40" r="12" fill="#ff6b6b" opacity="0.8"/>
+  <circle cx="80" cy="40" r="12" fill="#74b9ff" opacity="0.8"/>
+  <circle cx="40" cy="80" r="12" fill="#55efc4" opacity="0.8"/>
+  <circle cx="80" cy="80" r="12" fill="#fdcb6e" opacity="0.8"/>
+  
+  <!-- Center icon -->
+  <path d="M50 50 L70 50 L70 70 L50 70 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M55 55 L65 55 L65 65 L55 65 Z" fill="#667eea" opacity="0.8"/>
+</svg>

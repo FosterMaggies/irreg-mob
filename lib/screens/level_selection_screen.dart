@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'game_screen.dart';
+import '../widgets/svg_asset.dart';
 
 class LevelSelectionScreen extends StatefulWidget {
   const LevelSelectionScreen({super.key});
@@ -14,12 +15,12 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
   int selectedLevel = 1;
 
   final List<LevelInfo> levels = [
-    LevelInfo(1, "Tutorial", "Learn the basics", Colors.green, true),
-    LevelInfo(2, "Easy", "Simple puzzles", Colors.blue, true),
-    LevelInfo(3, "Medium", "More complex", Colors.orange, true),
-    LevelInfo(4, "Hard", "Challenging", Colors.red, true),
-    LevelInfo(5, "Expert", "Master level", Colors.purple, true),
-    LevelInfo(6, "Legend", "Ultimate challenge", Colors.black, true),
+    LevelInfo(1, "Tutorial", "Learn the basics", Colors.green, true, "assets/icons/level_tutorial.svg"),
+    LevelInfo(2, "Easy", "Simple puzzles", Colors.blue, true, "assets/icons/level_easy.svg"),
+    LevelInfo(3, "Medium", "More complex", Colors.orange, true, "assets/icons/level_medium.svg"),
+    LevelInfo(4, "Hard", "Challenging", Colors.red, true, "assets/icons/level_hard.svg"),
+    LevelInfo(5, "Expert", "Master level", Colors.purple, true, "assets/icons/level_expert.svg"),
+    LevelInfo(6, "Legend", "Ultimate challenge", Colors.black, true, "assets/icons/level_legend.svg"),
   ];
 
   @override
@@ -155,18 +156,20 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: isUnlocked
-                                      ? (isSelected ? Colors.white : level.color)
-                                      : Colors.grey,
+                                      ? (isSelected ? Colors.white : Colors.transparent)
+                                      : Colors.grey.withOpacity(0.3),
                                 ),
-                                child: Icon(
-                                  isUnlocked
-                                      ? (isSelected ? Icons.play_arrow : Icons.check)
-                                      : Icons.lock,
-                                  color: isUnlocked
-                                      ? (isSelected ? level.color : Colors.white)
-                                      : Colors.white,
-                                  size: 24,
-                                ),
+                                child: isUnlocked
+                                    ? SvgAsset(
+                                        assetPath: level.iconPath,
+                                        width: 50,
+                                        height: 50,
+                                      )
+                                    : const Icon(
+                                        Icons.lock,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
                               ),
                               
                               const SizedBox(height: 10),
@@ -326,6 +329,7 @@ class LevelInfo {
   final String description;
   final Color color;
   final bool isUnlocked;
+  final String iconPath;
 
-  LevelInfo(this.number, this.name, this.description, this.color, this.isUnlocked);
+  LevelInfo(this.number, this.name, this.description, this.color, this.isUnlocked, this.iconPath);
 }
