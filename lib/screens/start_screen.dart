@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'level_selection_screen.dart';
-<<<<<<< HEAD
 import '../widgets/svg_asset.dart';
-=======
->>>>>>> origin/main
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -22,17 +19,17 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    
+
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _scaleController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -40,7 +37,7 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
       parent: _fadeController,
       curve: Curves.easeInOut,
     ));
-    
+
     _scaleAnimation = Tween<double>(
       begin: 0.8,
       end: 1.0,
@@ -48,7 +45,7 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
       parent: _scaleController,
       curve: Curves.elasticOut,
     ));
-    
+
     _fadeController.forward();
     _scaleController.forward();
   }
@@ -90,40 +87,14 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                       child: Column(
                         children: [
                           // Game Icon
-<<<<<<< HEAD
                           const SvgAsset(
                             assetPath: 'assets/icons/game_logo.svg',
                             width: 120,
                             height: 120,
-=======
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: const LinearGradient(
-                                colors: [Colors.purple, Colors.blue, Colors.green],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.purple.withOpacity(0.3),
-                                  blurRadius: 20,
-                                  spreadRadius: 5,
-                                ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.games,
-                              size: 60,
-                              color: Colors.white,
-                            ),
->>>>>>> origin/main
                           ),
-                          
+
                           const SizedBox(height: 30),
-                          
+
                           // Game Title Text
                           const Text(
                             'COLOR LABYRINTH',
@@ -141,9 +112,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                               ],
                             ),
                           ),
-                          
+
                           const SizedBox(height: 15),
-                          
+
                           const Text(
                             'Navigate • Change • Solve',
                             style: TextStyle(
@@ -155,9 +126,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                         ],
                       ),
                     ),
-                    
+
                     const SizedBox(height: 60),
-                    
+
                     // Start Button
                     Container(
                       width: 200,
@@ -214,9 +185,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                         ),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 40),
-                    
+
                     // Game Description
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 40),

@@ -106,6 +106,21 @@ class GameLogic {
       case 10:
         _loadLevel10();
         break;
+      case 11:
+        _loadLevel11();
+        break;
+      case 12:
+        _loadLevel12();
+        break;
+      case 13:
+        _loadLevel13();
+        break;
+      case 14:
+        _loadLevel14();
+        break;
+      case 15:
+        _loadLevel15();
+        break;
       default:
         _loadRandomLevel();
     }
@@ -358,6 +373,32 @@ class GameLogic {
     playerColor = PlayerColor.red;
     exitRow = 11;
     exitCol = 6;
+  }
+
+  // New levels 11-15: alternate/random difficulty (easy -> medium -> hard -> super hard -> easy ...)
+  void _loadLevel11() {
+    // Easy
+    _loadLevel1();
+  }
+
+  void _loadLevel12() {
+    // Medium (keys, some doors)
+    _loadLevel4();
+  }
+
+  void _loadLevel13() {
+    // Hard (color changers, multiple colors, some enemies)
+    _loadLevel5();
+  }
+
+  void _loadLevel14() {
+    // Super hard (dense maze, many enemies and keys)
+    _loadLevel10();
+  }
+
+  void _loadLevel15() {
+    // Easy-ish but random layout to add variety
+    _loadRandomLevel();
   }
 
   void _loadRandomLevel() {
