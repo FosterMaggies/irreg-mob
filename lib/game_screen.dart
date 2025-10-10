@@ -488,7 +488,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildTouchControls() {
-    return Container(
+    return SizedBox(
       width: 200,
       height: 200,
       child: Stack(

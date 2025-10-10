@@ -19,17 +19,17 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    
+
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _scaleController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -37,7 +37,7 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
       parent: _fadeController,
       curve: Curves.easeInOut,
     ));
-    
+
     _scaleAnimation = Tween<double>(
       begin: 0.8,
       end: 1.0,
@@ -45,7 +45,7 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
       parent: _scaleController,
       curve: Curves.elasticOut,
     ));
-    
+
     _fadeController.forward();
     _scaleController.forward();
   }
@@ -92,9 +92,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                             width: 120,
                             height: 120,
                           ),
-                          
+
                           const SizedBox(height: 30),
-                          
+
                           // Game Title Text
                           const Text(
                             'COLOR LABYRINTH',
@@ -112,9 +112,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                               ],
                             ),
                           ),
-                          
+
                           const SizedBox(height: 15),
-                          
+
                           const Text(
                             'Navigate • Change • Solve',
                             style: TextStyle(
@@ -126,9 +126,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                         ],
                       ),
                     ),
-                    
+
                     const SizedBox(height: 60),
-                    
+
                     // Start Button
                     Container(
                       width: 200,
@@ -185,9 +185,9 @@ class _StartScreenState extends State<StartScreen> with TickerProviderStateMixin
                         ),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 40),
-                    
+
                     // Game Description
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 40),

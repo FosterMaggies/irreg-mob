@@ -15,16 +15,21 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
   int selectedLevel = 1;
 
   final List<LevelInfo> levels = [
-    LevelInfo(1, "Tutorial", "Learn the basics", Colors.green, true, "assets/icons/level_tutorial.svg"),
-    LevelInfo(2, "Easy", "Multiple colors", Colors.blue, true, "assets/icons/level_easy.svg"),
-    LevelInfo(3, "Hard", "Color changers", Colors.red, true, "assets/icons/level_hard.svg"),
-    LevelInfo(4, "Medium", "Key collection", Colors.orange, true, "assets/icons/level_medium.svg"),
-    LevelInfo(5, "Hard", "Enemies & keys", Colors.red, true, "assets/icons/level_hard.svg"),
-    LevelInfo(6, "Easy", "Purple & orange", Colors.purple, true, "assets/icons/level_easy.svg"),
-    LevelInfo(7, "Easy", "Cyan & pink", Colors.cyan, true, "assets/icons/level_easy.svg"),
-    LevelInfo(8, "Medium", "Keys & new colors", Colors.orange, true, "assets/icons/level_medium.svg"),
-    LevelInfo(9, "Hard", "All mechanics", Colors.red, true, "assets/icons/level_hard.svg"),
-    LevelInfo(10, "Legend", "Ultimate challenge", Colors.black, true, "assets/icons/level_legend.svg"),
+    LevelInfo(1,  "Tutorial",    "Learn the basics",             Colors.green,  true,  "assets/icons/level_tutorial.svg"),
+    LevelInfo(2,  "Easy",        "Multiple colors",              Colors.blue,   true,  "assets/icons/level_easy.svg"),
+    LevelInfo(3,  "Hard",        "Color changers",               Colors.red,    true,  "assets/icons/level_hard.svg"),
+    LevelInfo(4,  "Medium",      "Key collection",               Colors.orange, true,  "assets/icons/level_medium.svg"),
+    LevelInfo(5,  "Hard",        "Enemies & keys",               Colors.red,    true,  "assets/icons/level_hard.svg"),
+    LevelInfo(6,  "Easy",        "Purple & orange",              Colors.purple, true,  "assets/icons/level_easy.svg"),
+    LevelInfo(7,  "Easy",        "Cyan & pink",                  Colors.cyan,   true,  "assets/icons/level_easy.svg"),
+    LevelInfo(8,  "Medium",      "Keys & new colors",            Colors.orange, true,  "assets/icons/level_medium.svg"),
+    LevelInfo(9,  "Hard",        "All mechanics",                Colors.red,    true,  "assets/icons/level_hard.svg"),
+    LevelInfo(10, "Legend",      "Ultimate challenge",           Colors.black,  true,  "assets/icons/level_legend.svg"),
+    LevelInfo(11, "Easy",        "Warm-up remix",                Colors.green,  true,  "assets/icons/level_easy.svg"),
+    LevelInfo(12, "Medium",      "Keys and doors maze",          Colors.orange, true,  "assets/icons/level_medium.svg"),
+    LevelInfo(13, "Hard",        "Color changers + enemies",     Colors.red,    true,  "assets/icons/level_hard.svg"),
+    LevelInfo(14, "Super Hard",  "Legendary gauntlet",           Colors.black,  true,  "assets/icons/level_legend.svg"),
+    LevelInfo(15, "Easy",        "Randomized layout",            Colors.blue,   true,  "assets/icons/level_easy.svg"),
   ];
 
   @override

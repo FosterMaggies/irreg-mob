@@ -72,9 +72,9 @@ class GameLogic {
   void loadLevel(int level) {
     currentLevel = level;
     collectedKeys = <PlayerColor>{};
-    enemies = [];
+    enemies = <Enemy>[];
     colorChangerTimer = 0;
-    
+
     switch (level) {
       case 1:
         _loadLevel1();
@@ -106,6 +106,21 @@ class GameLogic {
       case 10:
         _loadLevel10();
         break;
+      case 11:
+        _loadLevel11();
+        break;
+      case 12:
+        _loadLevel12();
+        break;
+      case 13:
+        _loadLevel13();
+        break;
+      case 14:
+        _loadLevel14();
+        break;
+      case 15:
+        _loadLevel15();
+        break;
       default:
         _loadRandomLevel();
     }
@@ -123,7 +138,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 6;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -143,7 +158,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 6;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -163,7 +178,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.blueDoor, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 5;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -184,7 +199,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 6;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -207,11 +222,11 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     // Add enemies
     enemies.add(Enemy(4, 3, Direction.right, 0));
     enemies.add(Enemy(6, 5, Direction.left, 2));
-    
+
     playerRow = 7;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -231,7 +246,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 5;
     playerCol = 1;
     playerColor = PlayerColor.purple;
@@ -251,7 +266,7 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     playerRow = 5;
     playerCol = 1;
     playerColor = PlayerColor.cyan;
@@ -274,13 +289,13 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     // Add keys
     board[3][3] = TileType.redKey;
     board[5][5] = TileType.blueKey;
     board[7][3] = TileType.greenKey;
     board[8][5] = TileType.yellowKey;
-    
+
     playerRow = 7;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -303,18 +318,18 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     // Add enemies
     enemies.add(Enemy(3, 3, Direction.right, 0));
     enemies.add(Enemy(5, 5, Direction.left, 1));
     enemies.add(Enemy(7, 2, Direction.down, 2));
-    
+
     // Add keys
     board[2][3] = TileType.redKey;
     board[4][5] = TileType.blueKey;
     board[6][3] = TileType.greenKey;
     board[8][5] = TileType.yellowKey;
-    
+
     playerRow = 7;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -334,25 +349,25 @@ class GameLogic {
       [TileType.wall, TileType.empty, TileType.empty, TileType.greenDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
       [TileType.wall, TileType.empty, TileType.empty, TileType.yellowTile, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
-      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
+      [TileType.wall, TileType.empty, TileType.empty, TileType.yellowDoor, TileType.empty, TileType.empty, TileType.wall],
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.wall],
       [TileType.wall, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.empty, TileType.exit, TileType.wall],
       [TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall, TileType.wall],
     ];
-    
+
     // Add many enemies
     enemies.add(Enemy(2, 3, Direction.right, 0));
     enemies.add(Enemy(4, 5, Direction.left, 1));
     enemies.add(Enemy(6, 2, Direction.down, 2));
     enemies.add(Enemy(8, 4, Direction.up, 0));
     enemies.add(Enemy(10, 3, Direction.right, 1));
-    
+
     // Add keys
     board[2][3] = TileType.redKey;
     board[4][5] = TileType.blueKey;
     board[6][3] = TileType.greenKey;
     board[8][5] = TileType.yellowKey;
-    
+
     playerRow = 8;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -360,22 +375,48 @@ class GameLogic {
     exitCol = 6;
   }
 
+  // New levels 11-15: alternate/random difficulty (easy -> medium -> hard -> super hard -> easy ...)
+  void _loadLevel11() {
+    // Easy
+    _loadLevel1();
+  }
+
+  void _loadLevel12() {
+    // Medium (keys, some doors)
+    _loadLevel4();
+  }
+
+  void _loadLevel13() {
+    // Hard (color changers, multiple colors, some enemies)
+    _loadLevel5();
+  }
+
+  void _loadLevel14() {
+    // Super hard (dense maze, many enemies and keys)
+    _loadLevel10();
+  }
+
+  void _loadLevel15() {
+    // Easy-ish but random layout to add variety
+    _loadRandomLevel();
+  }
+
   void _loadRandomLevel() {
-    // Generate a random level for levels beyond 3
+    // Generate a random level for levels beyond 10
     board = List.generate(8, (row) => List.generate(8, (col) {
-      if (row == 0 || row == 7 || col == 0 || col == 7) {
-        return TileType.wall;
-      }
-      return TileType.empty;
-    });
-    
+          if (row == 0 || row == 7 || col == 0 || col == 7) {
+            return TileType.wall;
+          }
+          return TileType.empty;
+        }));
+
     // Add some random elements
     board[1][3] = TileType.redTile;
     board[2][3] = TileType.redDoor;
     board[2][5] = TileType.blueTile;
     board[3][5] = TileType.blueDoor;
     board[6][6] = TileType.exit;
-    
+
     playerRow = 6;
     playerCol = 1;
     playerColor = PlayerColor.red;
@@ -407,19 +448,20 @@ class GameLogic {
       return false;
     }
 
-    TileType targetTile = board[newRow][newCol];
+    // Disallow stepping into enemies occupying the tile
+    final bool enemyOnTarget = enemies.any((e) => e.row == newRow && e.col == newCol);
+    if (enemyOnTarget) {
+      return false;
+    }
 
-    // Check if it's a wall
+    final TileType targetTile = board[newRow][newCol];
+
+    // Check walls
     if (targetTile == TileType.wall) {
       return false;
     }
 
-    // Check if it's an enemy
-    if (targetTile == TileType.enemy) {
-      return false; // Can't move into enemy
-    }
-
-    // Check if it's a door and if player can pass
+    // Check doors
     if (_isDoor(targetTile) && !_canPassDoor(targetTile)) {
       return false;
     }
@@ -428,13 +470,13 @@ class GameLogic {
     playerRow = newRow;
     playerCol = newCol;
 
-    // Handle different tile types
+    // Handle tile effects
     if (_isColorTile(targetTile)) {
       playerColor = _getColorFromTile(targetTile);
     } else if (_isKey(targetTile)) {
-      PlayerColor keyColor = _getKeyColor(targetTile);
+      final PlayerColor keyColor = _getKeyColor(targetTile);
       collectedKeys.add(keyColor);
-      board[newRow][newCol] = TileType.empty; // Remove key
+      board[newRow][newCol] = TileType.empty;
     } else if (targetTile == TileType.colorChanger) {
       _cyclePlayerColor();
     }
@@ -444,35 +486,35 @@ class GameLogic {
 
   bool _isDoor(TileType tile) {
     return tile == TileType.redDoor ||
-           tile == TileType.blueDoor ||
-           tile == TileType.greenDoor ||
-           tile == TileType.yellowDoor ||
-           tile == TileType.purpleDoor ||
-           tile == TileType.orangeDoor ||
-           tile == TileType.cyanDoor ||
-           tile == TileType.pinkDoor;
+        tile == TileType.blueDoor ||
+        tile == TileType.greenDoor ||
+        tile == TileType.yellowDoor ||
+        tile == TileType.purpleDoor ||
+        tile == TileType.orangeDoor ||
+        tile == TileType.cyanDoor ||
+        tile == TileType.pinkDoor;
   }
 
   bool _isColorTile(TileType tile) {
     return tile == TileType.redTile ||
-           tile == TileType.blueTile ||
-           tile == TileType.greenTile ||
-           tile == TileType.yellowTile ||
-           tile == TileType.purpleTile ||
-           tile == TileType.orangeTile ||
-           tile == TileType.cyanTile ||
-           tile == TileType.pinkTile;
+        tile == TileType.blueTile ||
+        tile == TileType.greenTile ||
+        tile == TileType.yellowTile ||
+        tile == TileType.purpleTile ||
+        tile == TileType.orangeTile ||
+        tile == TileType.cyanTile ||
+        tile == TileType.pinkTile;
   }
 
   bool _isKey(TileType tile) {
     return tile == TileType.redKey ||
-           tile == TileType.blueKey ||
-           tile == TileType.greenKey ||
-           tile == TileType.yellowKey ||
-           tile == TileType.purpleKey ||
-           tile == TileType.orangeKey ||
-           tile == TileType.cyanKey ||
-           tile == TileType.pinkKey;
+        tile == TileType.blueKey ||
+        tile == TileType.greenKey ||
+        tile == TileType.yellowKey ||
+        tile == TileType.purpleKey ||
+        tile == TileType.orangeKey ||
+        tile == TileType.cyanKey ||
+        tile == TileType.pinkKey;
   }
 
   bool _canPassDoor(TileType doorTile) {
@@ -517,7 +559,7 @@ class GameLogic {
       case TileType.pinkTile:
         return PlayerColor.pink;
       default:
-        return playerColor; // Keep current color if not a color tile
+        return playerColor;
     }
   }
 
@@ -574,14 +616,14 @@ class GameLogic {
   }
 
   void updateEnemies() {
-    for (var enemy in enemies) {
+    for (final enemy in enemies) {
       enemy.moveTimer++;
-      if (enemy.moveTimer >= 3) { // Move every 3 player moves
+      if (enemy.moveTimer >= 3) {
         enemy.moveTimer = 0;
-        
+
         int newRow = enemy.row;
         int newCol = enemy.col;
-        
+
         switch (enemy.direction) {
           case Direction.up:
             newRow--;
@@ -596,15 +638,20 @@ class GameLogic {
             newCol++;
             break;
         }
-        
-        // Check if enemy can move
-        if (newRow >= 0 && newRow < board.length && 
-            newCol >= 0 && newCol < board[0].length &&
-            board[newRow][newCol] == TileType.empty) {
+
+        // Only move into empty tiles and not onto player
+        final bool canMove = newRow >= 0 &&
+            newRow < board.length &&
+            newCol >= 0 &&
+            newCol < board[0].length &&
+            board[newRow][newCol] == TileType.empty &&
+            !(newRow == playerRow && newCol == playerCol);
+
+        if (canMove) {
           enemy.row = newRow;
           enemy.col = newCol;
         } else {
-          // Change direction
+          // Bounce direction
           switch (enemy.direction) {
             case Direction.up:
               enemy.direction = Direction.down;
