@@ -15,6 +15,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late GameLogic gameLogic;
   late int currentLevel;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _GameScreenState extends State<GameScreen> {
     currentLevel = widget.initialLevel;
     gameLogic = GameLogic();
     gameLogic.loadLevel(currentLevel);
+    _setupTimerIfNeeded();
   }
 
   void _handleKeyPress(LogicalKeyboardKey key) {
@@ -81,19 +83,29 @@ class _GameScreenState extends State<GameScreen> {
     setState(() {
       currentLevel++;
       gameLogic.loadLevel(currentLevel);
+      _setupTimerIfNeeded();
     });
   }
 
   void _resetLevel() {
     setState(() {
       gameLogic.loadLevel(currentLevel);
+      _setupTimerIfNeeded();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: RawKeyboardListener(
+        focusNode: FocusNode(),
+        autofocus: true,
+        onKey: (RawKeyEvent event) {
+          if (event is RawKeyDownEvent) {
+            _handleKeyPress(event.logicalKey);
+          }
+        },
+        child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -134,6 +146,34 @@ class _GameScreenState extends State<GameScreen> {
                       ),
                     ),
                     const Spacer(),
+                    // Timer (super hard)
+                    if (gameLogic.timeLeftSeconds != null)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.timer, color: Colors.red, size: 16),
+                            const SizedBox(width: 6),
+                            Text(
+                              '${gameLogic.timeLeftSeconds}s',
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     // Player Color Indicator
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -279,6 +319,8 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ],
           ),
+        ),
+      ),
         ),
       ),
     );
@@ -554,5 +596,48 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ),
     );
+  }
+
+  void _setupTimerIfNeeded() {
+    _timer?.cancel();
+    if (gameLogic.timeLeftSeconds != null) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (t) {
+        final expired = gameLogic.tickSecond();
+        if (!mounted) return;
+        setState(() {});
+        if (expired) {
+          t.cancel();
+          _showTimeUpDialog();
+        }
+      });
+    }
+  }
+
+  void _showTimeUpDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Time Up!'),
+          content: const Text('You ran out of time. Try again?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _resetLevel();
+              },
+              child: const Text('Retry'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

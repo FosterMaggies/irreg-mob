@@ -1,3 +1,5 @@
+import 'dart:math';
+
 enum TileType {
   empty,
   wall,
@@ -48,6 +50,8 @@ enum Direction {
   right,
 }
 
+enum Difficulty { easy, medium, hard, superHard }
+
 class Enemy {
   int row;
   int col;
@@ -68,12 +72,15 @@ class GameLogic {
   late List<Enemy> enemies;
   late int colorChangerTimer;
   late int currentLevel;
+  int? timeLeftSeconds; // Only set for super hard levels
 
   void loadLevel(int level) {
     currentLevel = level;
     collectedKeys = <PlayerColor>{};
     enemies = <Enemy>[];
     colorChangerTimer = 0;
+
+    final Difficulty difficulty = getDifficultyForLevel(level);
 
     switch (level) {
       case 1:
@@ -106,24 +113,16 @@ class GameLogic {
       case 10:
         _loadLevel10();
         break;
-      case 11:
-        _loadLevel11();
-        break;
-      case 12:
-        _loadLevel12();
-        break;
-      case 13:
-        _loadLevel13();
-        break;
-      case 14:
-        _loadLevel14();
-        break;
-      case 15:
-        _loadLevel15();
-        break;
       default:
-        _loadRandomLevel();
+        _loadByDifficulty(difficulty);
     }
+
+    // Enforce enemies rule and timer per difficulty
+    if (difficulty == Difficulty.easy || difficulty == Difficulty.superHard) {
+      enemies.clear();
+    }
+
+    timeLeftSeconds = (difficulty == Difficulty.superHard) ? 60 : null;
   }
 
   void _loadLevel1() {
@@ -375,30 +374,58 @@ class GameLogic {
     exitCol = 6;
   }
 
-  // New levels 11-15: alternate/random difficulty (easy -> medium -> hard -> super hard -> easy ...)
-  void _loadLevel11() {
-    // Easy
-    _loadLevel1();
+  // Choose a template based on difficulty, with light randomization
+  void _loadByDifficulty(Difficulty difficulty) {
+    final Random rng = Random();
+    switch (difficulty) {
+      case Difficulty.easy:
+        // Pick one of the easy templates
+        final List<void Function()> easyTemplates = [
+          _loadLevel1,
+          _loadLevel2,
+          _loadLevel6,
+          _loadLevel7,
+        ];
+        easyTemplates[rng.nextInt(easyTemplates.length)]();
+        break;
+      case Difficulty.medium:
+        final List<void Function()> mediumTemplates = [
+          _loadLevel4,
+          _loadLevel8,
+        ];
+        mediumTemplates[rng.nextInt(mediumTemplates.length)]();
+        break;
+      case Difficulty.hard:
+        final List<void Function()> hardTemplates = [
+          _loadLevel5,
+          _loadLevel9,
+        ];
+        hardTemplates[rng.nextInt(hardTemplates.length)]();
+        break;
+      case Difficulty.superHard:
+        // Start from legend template; enemies will be cleared by caller rules
+        _loadLevel10();
+        break;
+    }
   }
 
-  void _loadLevel12() {
-    // Medium (keys, some doors)
-    _loadLevel4();
+  // Alternating difficulty sequence over levels
+  Difficulty getDifficultyForLevel(int level) {
+    final List<Difficulty> order = const [
+      Difficulty.easy,
+      Difficulty.medium,
+      Difficulty.hard,
+      Difficulty.superHard,
+    ];
+    return order[(level - 1) % order.length];
   }
 
-  void _loadLevel13() {
-    // Hard (color changers, multiple colors, some enemies)
-    _loadLevel5();
-  }
-
-  void _loadLevel14() {
-    // Super hard (dense maze, many enemies and keys)
-    _loadLevel10();
-  }
-
-  void _loadLevel15() {
-    // Easy-ish but random layout to add variety
-    _loadRandomLevel();
+  // Tick timer by one second; returns true when time just expired
+  bool tickSecond() {
+    if (timeLeftSeconds == null) return false;
+    if (timeLeftSeconds! <= 0) return false;
+    timeLeftSeconds = timeLeftSeconds! - 1;
+    return timeLeftSeconds == 0;
   }
 
   void _loadRandomLevel() {

@@ -14,23 +14,35 @@ class _LevelSelectionScreenState extends State<LevelSelectionScreen> {
   int unlockedLevels = 1; // This would normally be saved in shared preferences
   int selectedLevel = 1;
 
-  final List<LevelInfo> levels = [
-    LevelInfo(1,  "Tutorial",    "Learn the basics",             Colors.green,  true,  "assets/icons/level_tutorial.svg"),
-    LevelInfo(2,  "Easy",        "Multiple colors",              Colors.blue,   true,  "assets/icons/level_easy.svg"),
-    LevelInfo(3,  "Hard",        "Color changers",               Colors.red,    true,  "assets/icons/level_hard.svg"),
-    LevelInfo(4,  "Medium",      "Key collection",               Colors.orange, true,  "assets/icons/level_medium.svg"),
-    LevelInfo(5,  "Hard",        "Enemies & keys",               Colors.red,    true,  "assets/icons/level_hard.svg"),
-    LevelInfo(6,  "Easy",        "Purple & orange",              Colors.purple, true,  "assets/icons/level_easy.svg"),
-    LevelInfo(7,  "Easy",        "Cyan & pink",                  Colors.cyan,   true,  "assets/icons/level_easy.svg"),
-    LevelInfo(8,  "Medium",      "Keys & new colors",            Colors.orange, true,  "assets/icons/level_medium.svg"),
-    LevelInfo(9,  "Hard",        "All mechanics",                Colors.red,    true,  "assets/icons/level_hard.svg"),
-    LevelInfo(10, "Legend",      "Ultimate challenge",           Colors.black,  true,  "assets/icons/level_legend.svg"),
-    LevelInfo(11, "Easy",        "Warm-up remix",                Colors.green,  true,  "assets/icons/level_easy.svg"),
-    LevelInfo(12, "Medium",      "Keys and doors maze",          Colors.orange, true,  "assets/icons/level_medium.svg"),
-    LevelInfo(13, "Hard",        "Color changers + enemies",     Colors.red,    true,  "assets/icons/level_hard.svg"),
-    LevelInfo(14, "Super Hard",  "Legendary gauntlet",           Colors.black,  true,  "assets/icons/level_legend.svg"),
-    LevelInfo(15, "Easy",        "Randomized layout",            Colors.blue,   true,  "assets/icons/level_easy.svg"),
-  ];
+  late final List<LevelInfo> levels;
+
+  @override
+  void initState() {
+    super.initState();
+    levels = _generateLevels();
+  }
+
+  List<LevelInfo> _generateLevels() {
+    final List<LevelInfo> out = [];
+    for (int i = 1; i <= 20; i++) {
+      final int mod = (i - 1) % 4;
+      switch (mod) {
+        case 0:
+          out.add(LevelInfo(i, i == 1 ? 'Tutorial' : 'Easy', i == 1 ? 'Learn the basics' : 'Multiple colors', Colors.blue, true, 'assets/icons/level_easy.svg'));
+          break;
+        case 1:
+          out.add(LevelInfo(i, 'Medium', 'Keys & doors challenge', Colors.orange, true, 'assets/icons/level_medium.svg'));
+          break;
+        case 2:
+          out.add(LevelInfo(i, 'Hard', 'Color changers + keys', Colors.red, true, 'assets/icons/level_hard.svg'));
+          break;
+        case 3:
+          out.add(LevelInfo(i, 'Super Hard', 'Timed gauntlet', Colors.black, true, 'assets/icons/level_legend.svg'));
+          break;
+      }
+    }
+    return out;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/start_screen.dart';
+import 'screens/loading_screen.dart';
 
 void main() {
   runApp(const ColorLabyrinthApp());
@@ -18,7 +19,11 @@ class ColorLabyrinthApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Roboto',
       ),
-      home: const StartScreen(),
+      initialRoute: '/loading',
+      routes: {
+        '/loading': (context) => const LoadingScreen(),
+        '/start': (context) => const StartScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
