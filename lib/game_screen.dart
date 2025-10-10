@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../game_logic.dart';
+<<<<<<< HEAD
 import '../widgets/svg_asset.dart';
+=======
+>>>>>>> origin/main
 
 class GameScreen extends StatefulWidget {
   final int initialLevel;
@@ -45,8 +48,11 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     if (moved) {
+<<<<<<< HEAD
       // Update enemies after player moves
       gameLogic.updateEnemies();
+=======
+>>>>>>> origin/main
       setState(() {});
       
       if (gameLogic.isLevelComplete()) {
@@ -168,6 +174,7 @@ class _GameScreenState extends State<GameScreen> {
                         ],
                       ),
                     ),
+<<<<<<< HEAD
                     
                     const SizedBox(width: 10),
                     
@@ -203,6 +210,8 @@ class _GameScreenState extends State<GameScreen> {
                           ],
                         ),
                       ),
+=======
+>>>>>>> origin/main
                     const SizedBox(width: 10),
                     IconButton(
                       onPressed: () {
@@ -304,11 +313,16 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildTile(TileType tile, int row, int col) {
+<<<<<<< HEAD
+=======
+    Color tileColor;
+>>>>>>> origin/main
     Widget? child;
     
     // Check if this is the player position
     bool isPlayer = gameLogic.playerRow == row && gameLogic.playerCol == col;
     
+<<<<<<< HEAD
     if (isPlayer) {
       // Use custom player SVG based on color
       switch (gameLogic.playerColor) {
@@ -422,6 +436,54 @@ class _GameScreenState extends State<GameScreen> {
             break;
         }
       }
+=======
+    switch (tile) {
+      case TileType.empty:
+        tileColor = Colors.grey[700]!;
+        break;
+      case TileType.wall:
+        tileColor = Colors.black;
+        break;
+      case TileType.redTile:
+        tileColor = Colors.red[300]!;
+        break;
+      case TileType.blueTile:
+        tileColor = Colors.blue[300]!;
+        break;
+      case TileType.greenTile:
+        tileColor = Colors.green[300]!;
+        break;
+      case TileType.yellowTile:
+        tileColor = Colors.yellow[300]!;
+        break;
+      case TileType.redDoor:
+        tileColor = Colors.red[800]!;
+        break;
+      case TileType.blueDoor:
+        tileColor = Colors.blue[800]!;
+        break;
+      case TileType.greenDoor:
+        tileColor = Colors.green[800]!;
+        break;
+      case TileType.yellowDoor:
+        tileColor = Colors.yellow[800]!;
+        break;
+      case TileType.exit:
+        tileColor = Colors.green[600]!;
+        break;
+    }
+    
+    if (isPlayer) {
+      child = Container(
+        width: 20,
+        height: 20,
+        decoration: BoxDecoration(
+          color: _getPlayerColor(),
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.white, width: 2),
+        ),
+      );
+>>>>>>> origin/main
     }
     
     return Container(
@@ -429,6 +491,7 @@ class _GameScreenState extends State<GameScreen> {
       height: 40,
       margin: const EdgeInsets.all(1),
       decoration: BoxDecoration(
+<<<<<<< HEAD
         borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
@@ -442,6 +505,12 @@ class _GameScreenState extends State<GameScreen> {
         borderRadius: BorderRadius.circular(4),
         child: child,
       ),
+=======
+        color: tileColor,
+        border: Border.all(color: Colors.grey[600]!, width: 0.5),
+      ),
+      child: Center(child: child),
+>>>>>>> origin/main
     );
   }
 
@@ -455,6 +524,7 @@ class _GameScreenState extends State<GameScreen> {
         return Colors.green;
       case PlayerColor.yellow:
         return Colors.yellow;
+<<<<<<< HEAD
       case PlayerColor.purple:
         return Colors.purple;
       case PlayerColor.orange:
@@ -463,6 +533,8 @@ class _GameScreenState extends State<GameScreen> {
         return Colors.cyan;
       case PlayerColor.pink:
         return Colors.pink;
+=======
+>>>>>>> origin/main
     }
   }
 
@@ -476,6 +548,7 @@ class _GameScreenState extends State<GameScreen> {
         return 'GREEN';
       case PlayerColor.yellow:
         return 'YELLOW';
+<<<<<<< HEAD
       case PlayerColor.purple:
         return 'PURPLE';
       case PlayerColor.orange:
@@ -484,6 +557,8 @@ class _GameScreenState extends State<GameScreen> {
         return 'CYAN';
       case PlayerColor.pink:
         return 'PINK';
+=======
+>>>>>>> origin/main
     }
   }
 
@@ -528,8 +603,11 @@ class _GameScreenState extends State<GameScreen> {
         HapticFeedback.lightImpact();
         bool moved = gameLogic.movePlayer(direction);
         if (moved) {
+<<<<<<< HEAD
           // Update enemies after player moves
           gameLogic.updateEnemies();
+=======
+>>>>>>> origin/main
           setState(() {});
           if (gameLogic.isLevelComplete()) {
             _showLevelCompleteDialog();
